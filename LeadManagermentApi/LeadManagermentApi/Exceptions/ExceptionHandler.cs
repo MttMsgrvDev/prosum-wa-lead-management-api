@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace LeadManagermentApi.Exceptions;
 
-public class ExceptionHandler : IExceptionHandler
+public class ExceptionHandler(ILogger<ExceptionHandler> logger) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(
         HttpContext httpContext,
@@ -27,6 +27,7 @@ public class ExceptionHandler : IExceptionHandler
         }
         else
         {
+            logger.LogError(exception, "Exception occured handling request to path {0}", httpContext.Request.Path);
             problemDetails = GetProblemDetails(httpContext, exception, cancellationToken);
         }
 
