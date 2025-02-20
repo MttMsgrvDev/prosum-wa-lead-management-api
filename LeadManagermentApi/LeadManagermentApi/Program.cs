@@ -1,6 +1,7 @@
 using FluentValidation;
 using LeadManagermentApi.Behavoirs;
 using LeadManagermentApi.Exceptions;
+using LeadManagermentApi.Features.Leads.Profiles;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddLogging();
+
+//builder.Services.AddAutoMapper(new[] { typeof(Program).Assembly });
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 

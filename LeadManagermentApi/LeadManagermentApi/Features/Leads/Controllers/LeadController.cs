@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using LeadManagermentApi.Features.Leads.Commands.Create;
 using LeadManagermentApi.Features.Leads.DTOs;
-using LeadManagermentApi.Features.Leads.ViewModel;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,27 +9,17 @@ namespace LeadManagermentApi.Features.Leads.Controllers;
 /// <summary>
 /// API controller for leads.
 /// </summary>
+/// <remarks>
+/// Creates a new instance of LeadController.
+/// </remarks>
+/// <param name="mediator">Provides mediator services.</param>
+/// <param name="mapper">Provides object mapping services.</param>
 [Route("api/[controller]")]
 [ApiController]
-public class LeadController : ControllerBase
+public class LeadController(
+    IMediator mediator,
+    IMapper mapper) : ControllerBase
 {
-
-    private readonly IMediator _mediator;
-
-    private readonly IMapper _mapper;
-
-    /// <summary>
-    /// Creates a new instance of LeadController.
-    /// </summary>
-    /// <param name="mediator">Provides mediator services.</param>
-    /// <param name="mapper">Provides object mapping services.</param>
-    public LeadController(
-        IMediator mediator,
-        IMapper mapper)
-    {
-        _mediator = mediator;
-        _mapper = mapper;
-    }
 
     /// <summary>
     /// Endpoint to creates a new lead.
@@ -40,7 +29,7 @@ public class LeadController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<LeadDto>> CreateLead(CreateLeadCommand command)
     {
-        var result = await _mediator.Send(command);
+        var result = await mediator.Send(command);
 
         return Created("", result);
     }
