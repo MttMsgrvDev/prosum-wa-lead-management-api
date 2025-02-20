@@ -6,4 +6,6 @@ namespace LeadManagermentApi.Features.Contact.Queries.Find;
 /// <summary>
 /// A query to find a contact.
 /// </summary>
-public record FindContactQuery(string Email, string PhoneNumber) : IRequest<ContactDto?>;
+/// <param name="Email">The email address to search for.</param>
+/// <param name="PhoneNumber">The phone number to search for.</param>
+public record FindContactQuery(string? Email, string? PhoneNumber) : IRequest<ContactDto?>;
