@@ -11,7 +11,7 @@ public static class PhoneNumberValidator
     /// <summary>
     /// Regular expression for a phone number.
     /// </summary>
-    private static readonly Regex PhoneNumberRegex = new Regex(@"^\(d{3}\) d{3}-d{4}$");
+    private static readonly Regex PhoneNumberRegex = new Regex(@"^\(?\d{3}\)?-? *\d{3}-? *-?\d{4}$");
 
     /// <summary>
     /// Defines a rule that phone numbers must follow a format.

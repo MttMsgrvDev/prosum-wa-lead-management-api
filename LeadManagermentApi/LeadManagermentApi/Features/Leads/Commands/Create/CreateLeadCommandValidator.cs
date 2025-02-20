@@ -17,7 +17,7 @@ public class CreateLeadCommandValidator : AbstractValidator<CreateLeadCommand>
 
         RuleFor(c => c.LastName).NotNull().NotEmpty().WithMessage("Last name must not be null or empty.");
 
-        RuleFor(c => c.PhoneNumber).NotNull().NotEmpty().PhoneNumber().WithMessage(@"Phone number must match the pattern ""(###) ###-####""");
+        RuleFor(c => c.PhoneNumber).NotNull().NotEmpty().PhoneNumber().WithMessage(@"Phone number must be in a valid phone number format.");
 
         RuleFor(c => c.ZipCode).NotNull().NotEmpty().ZipCode().WithMessage(@"Zip code must match the format ""#####"" or ""#####-####""");
     }
