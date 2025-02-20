@@ -15,7 +15,6 @@ namespace LeadManagermentApi.Behavoirs;
 public class ValidationBehavoir<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
 {
-    private readonly IEnumerable<IValidator<TRequest>> _validators = validators;
 
     /// <summary>
     /// Validates the request and executes the next step in the pipeline if validation passes.
@@ -27,7 +26,7 @@ public class ValidationBehavoir<TRequest, TResponse>(IEnumerable<IValidator<TReq
     /// <exception cref="FluentValidation.ValidationException">If validation fails, contains information about the failed validation failure(s).</exception>
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        if (!_validators.Any())
+        if (!validators.Any())
         {
             return await next().ConfigureAwait(false);
         }
@@ -35,7 +34,7 @@ public class ValidationBehavoir<TRequest, TResponse>(IEnumerable<IValidator<TReq
         var context = new ValidationContext<TRequest>(request);
 
         var validationResults = await Task.WhenAll(
-            _validators.Select(v =>
+            validators.Select(v =>
                 v.ValidateAsync(context, cancellationToken))).ConfigureAwait(false);
 
         var failures = validationResults
