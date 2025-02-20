@@ -1,23 +1,23 @@
 ﻿using FluentAssertions;
-using LeadManagermentApi.Features.Leads.Commands.Create;
+using LeadManagermentApi.Features.Contact.Commands.Create;
 
-namespace LeadManagementApi.Test.Features.Leads.Commands;
+namespace LeadManagementApi.Test.Features.Contacts.Commands;
 
-public class CreateLeadCommandValidatorTests
+/// <summary>
+/// Tests for the CreateContactCommandValidator class.
+/// </summary>
+public class CreateContactCommandValidatorTests
 {
-    private readonly CreateLeadCommandValidator _validator;
+    private readonly CreateContactCommandValidator _validator;
 
-    public CreateLeadCommandValidatorTests()
+    public CreateContactCommandValidatorTests()
     {
-        _validator = new CreateLeadCommandValidator();
+        _validator = new CreateContactCommandValidator();
     }
 
     [Fact]
     public void ValidCommand_Validate_Valid()
     {
-        var source = "Test Source";
-        var subject = "Test Subject";
-        var message = "Test Message";
         var email = "matt@musgrove.io";
         var firstName = "Matt";
         var lastName = "Musgrove";
@@ -25,7 +25,7 @@ public class CreateLeadCommandValidatorTests
         var zipCode = "91306";
         var permissionToContact = true;
 
-        var command = new CreateLeadCommand(source, subject, message, email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
+        var command = new CreateContactCommand(email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
 
         var result = _validator.Validate(command);
 
@@ -35,9 +35,6 @@ public class CreateLeadCommandValidatorTests
     [Fact]
     public void InvalidEmail_Validate_Invalid()
     {
-        var source = "Test Source";
-        var subject = "Test Subject";
-        var message = "Test Message";
         var email = "Hello !!!!";
         var firstName = "Matt";
         var lastName = "Musgrove";
@@ -45,7 +42,7 @@ public class CreateLeadCommandValidatorTests
         var zipCode = "91306";
         var permissionToContact = true;
 
-        var command = new CreateLeadCommand(source, subject, message, email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
+        var command = new CreateContactCommand(email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
 
         var result = _validator.Validate(command);
 
@@ -62,9 +59,6 @@ public class CreateLeadCommandValidatorTests
     [Fact]
     public void InvalidFirstName_Validate_Invalid()
     {
-        var source = "Test Source";
-        var subject = "Test Subject";
-        var message = "Test Message";
         var email = "matt@musgrove.io";
         var firstName = "   ";
         var lastName = "Musgrove";
@@ -72,7 +66,7 @@ public class CreateLeadCommandValidatorTests
         var zipCode = "91306";
         var permissionToContact = true;
 
-        var command = new CreateLeadCommand(source, subject, message, email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
+        var command = new CreateContactCommand(email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
 
         var result = _validator.Validate(command);
 
@@ -89,9 +83,6 @@ public class CreateLeadCommandValidatorTests
     [Fact]
     public void InvalidLastName_Validate_Invalid()
     {
-        var source = "Test Source";
-        var subject = "Test Subject";
-        var message = "Test Message";
         var email = "matt@musgrove.io";
         var firstName = "Matt";
         var lastName = "\t";
@@ -99,7 +90,7 @@ public class CreateLeadCommandValidatorTests
         var zipCode = "91306";
         var permissionToContact = true;
 
-        var command = new CreateLeadCommand(source, subject, message, email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
+        var command = new CreateContactCommand(email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
 
         var result = _validator.Validate(command);
 
@@ -116,9 +107,6 @@ public class CreateLeadCommandValidatorTests
     [Fact]
     public void InvalidPhoneNumber_Validate_Invalid()
     {
-        var source = "Test Source";
-        var subject = "Test Subject";
-        var message = "Test Message";
         var email = "matt@musgrove.io";
         var firstName = "Matt";
         var lastName = "Musgrove";
@@ -126,7 +114,7 @@ public class CreateLeadCommandValidatorTests
         var zipCode = "91306";
         var permissionToContact = true;
 
-        var command = new CreateLeadCommand(source, subject, message, email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
+        var command = new CreateContactCommand(email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
 
         var result = _validator.Validate(command);
 
@@ -143,9 +131,6 @@ public class CreateLeadCommandValidatorTests
     [Fact]
     public void InvalidZipCode_Validate_Invalid()
     {
-        var source = "Test Source";
-        var subject = "Test Subject";
-        var message = "Test Message";
         var email = "matt@musgrove.io";
         var firstName = "Matt";
         var lastName = "Musgrove";
@@ -153,7 +138,7 @@ public class CreateLeadCommandValidatorTests
         var zipCode = "913061234";
         var permissionToContact = true;
 
-        var command = new CreateLeadCommand(source, subject, message, email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
+        var command = new CreateContactCommand(email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
 
         var result = _validator.Validate(command);
 

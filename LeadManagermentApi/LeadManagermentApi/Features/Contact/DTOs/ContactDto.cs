@@ -1,4 +1,4 @@
-﻿namespace LeadManagermentApi.Features.Leads.DTOs;
+﻿namespace LeadManagermentApi.Features.Contact.DTOs;
 
 /// <summary>
 /// Represents a contact.
