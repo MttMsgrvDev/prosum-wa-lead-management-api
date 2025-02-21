@@ -19,7 +19,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddLogging();
 
-//builder.Services.AddAutoMapper(new[] { typeof(Program).Assembly });
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();

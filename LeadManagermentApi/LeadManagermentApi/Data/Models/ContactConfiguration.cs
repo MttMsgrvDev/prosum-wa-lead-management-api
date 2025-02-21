@@ -14,6 +14,9 @@ public class ContactConfiguration : IEntityTypeConfiguration<Contact>
     /// <param name="builder">The entity builder.</param>
     public void Configure(EntityTypeBuilder<Contact> builder)
     {
-        
+        builder.HasIndex(c => c.Email)
+            .IsUnique();
+
+        builder.HasIndex(c => c.PhoneNumber);
     }
 }

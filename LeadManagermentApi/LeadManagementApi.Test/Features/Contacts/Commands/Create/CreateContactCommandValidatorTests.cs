@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using LeadManagermentApi.Features.Contact.Commands.Create;
 
-namespace LeadManagementApi.Test.Features.Contacts.Commands;
+namespace LeadManagementApi.Test.Features.Contacts.Commands.Create;
 
 /// <summary>
 /// Tests for the CreateContactCommandValidator class.
