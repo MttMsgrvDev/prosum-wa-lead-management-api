@@ -1,4 +1,4 @@
-﻿using LeadManagermentApi.Models.Entity;
+﻿using LeadManagermentApi.Data.Models.Entity;
 
 namespace LeadManagermentApi.Repositories;
 
@@ -7,7 +7,7 @@ namespace LeadManagermentApi.Repositories;
 /// </summary>
 /// <typeparam name="TEntity">The type of entity of the repository.</typeparam>
 public interface IWriteRepository<TEntity>
-    where TEntity : IEntity
+    where TEntity : class, IEntity
 {
 
     /// <summary>
@@ -29,9 +29,9 @@ public interface IWriteRepository<TEntity>
     /// <summary>
     /// Asynchronously deletes the entity record identified by the given id.
     /// </summary>
-    /// <param name="id">Identifies the record to be deleted.</param>
+    /// <param name="entity">The entity record to be deleted.</param>
     /// <param name="cancellationToken">Allows for task cancellation.</param>
     /// <returns>A task to delete the entity.</returns>
-    Task<TEntity> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<TEntity> DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
 
 }

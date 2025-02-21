@@ -1,4 +1,4 @@
-﻿using LeadManagermentApi.Models.Entity;
+﻿using LeadManagermentApi.Data.Models.Entity;
 using System.Linq.Expressions;
 
 namespace LeadManagermentApi.Repositories;
@@ -8,7 +8,7 @@ namespace LeadManagermentApi.Repositories;
 /// </summary>
 /// <typeparam name="TEntity">The type of entity of the repository.</typeparam>
 public interface IReadRepository<TEntity>
-    where TEntity : IEntity
+    where TEntity : class, IEntity
 {
 
     /// <summary>
@@ -23,6 +23,7 @@ public interface IReadRepository<TEntity>
     /// Asynchronously retrieves a collection of entity records based on a filtering expression.
     /// </summary>
     /// <param name="predicate">An expression used to filter entity records.</param>
-    /// <returns>A task to retrieve a collection of entity records using the given filtyer.</returns>
-    Task<IEnumerable<TEntity>> GetManyAsync(Expression<Predicate<TEntity>> predicate, CancellationToken cancellationToken = default);
+    /// <param name="cancellationToken">Allows for cancellation.</param>
+    /// <returns>A task to retrieve a collection of entity records using the given filter.</returns>
+    Task<IEnumerable<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 }

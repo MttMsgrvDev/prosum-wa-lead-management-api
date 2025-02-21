@@ -1,4 +1,6 @@
-﻿namespace LeadManagermentApi.Models.Entity;
+﻿using System;
+
+namespace LeadManagermentApi.Data.Models.Entity;
 
 /// <summary>
 /// Represents a data entity record.

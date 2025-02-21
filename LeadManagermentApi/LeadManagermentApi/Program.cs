@@ -1,7 +1,11 @@
 using FluentValidation;
 using LeadManagermentApi.Behavoirs;
+using LeadManagermentApi.Data.Context;
+using LeadManagermentApi.Data.Models;
 using LeadManagermentApi.Exceptions;
 using LeadManagermentApi.Features.Leads.Profiles;
+using LeadManagermentApi.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +31,19 @@ builder.Services.AddMediatR(cfg => {
 
 builder.Services.AddExceptionHandler<ExceptionHandler>();
 builder.Services.AddProblemDetails();
+
+builder.Services.AddDbContextFactory<LeadContext>(options =>
+{
+    options.UseInMemoryDatabase("LeadManagementDb");
+});
+
+builder.Services.AddTransient<IReadRepository<Lead>, BaseReadRepository<Lead>>();
+builder.Services.AddTransient<IWriteRepository<Lead>, BaseWriteRepository<Lead>>();
+builder.Services.AddTransient<IReadWriteRepository<Lead>, BaseReadWriteRepository<Lead>>();
+
+builder.Services.AddTransient<IReadRepository<Contact>, BaseReadRepository<Contact>>();
+builder.Services.AddTransient<IWriteRepository<Contact>, BaseWriteRepository<Contact>>();
+builder.Services.AddTransient<IReadWriteRepository<Contact>, BaseReadWriteRepository<Contact>>();
 
 var app = builder.Build();
 
