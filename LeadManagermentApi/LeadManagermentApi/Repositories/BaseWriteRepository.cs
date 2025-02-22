@@ -1,4 +1,5 @@
-﻿using LeadManagermentApi.Data.Models.Entity;
+﻿using LeadManagermentApi.Data.Context;
+using LeadManagermentApi.Data.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeadManagermentApi.Repositories;
@@ -7,7 +8,7 @@ namespace LeadManagermentApi.Repositories;
 /// A base repository for writing TEntity records to.
 /// </summary>
 /// <typeparam name="TEntity">The type of entity of the repository.</typeparam>
-public class BaseWriteRepository<TEntity>(IDbContextFactory<DbContext> dbContextFactory) : IWriteRepository<TEntity>
+public class BaseWriteRepository<TEntity>(IDbContextFactory<LeadContext> dbContextFactory) : IWriteRepository<TEntity>
     where TEntity : class, IEntity
 {
     /// <summary>

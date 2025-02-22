@@ -1,4 +1,5 @@
-﻿using LeadManagermentApi.Data.Models.Entity;
+﻿using LeadManagermentApi.Data.Context;
+using LeadManagermentApi.Data.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -9,7 +10,7 @@ namespace LeadManagermentApi.Repositories;
 /// </summary>
 /// <typeparam name="TEntity">The type of the entity.</typeparam>
 /// <param name="dbContextFactory">Factory for creating database contexts.</param>
-public class BaseReadRepository<TEntity>(IDbContextFactory<DbContext> dbContextFactory) : IReadRepository<TEntity>
+public class BaseReadRepository<TEntity>(IDbContextFactory<LeadContext> dbContextFactory) : IReadRepository<TEntity>
     where TEntity : class, IEntity
 {
 

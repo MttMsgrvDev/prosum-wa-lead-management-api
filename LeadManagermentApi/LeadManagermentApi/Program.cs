@@ -36,13 +36,13 @@ builder.Services.AddDbContextFactory<LeadContext>(options =>
     options.UseInMemoryDatabase("LeadManagementDb");
 });
 
-builder.Services.AddTransient<IReadRepository<Lead>, BaseReadRepository<Lead>>();
-builder.Services.AddTransient<IWriteRepository<Lead>, BaseWriteRepository<Lead>>();
-builder.Services.AddTransient<IReadWriteRepository<Lead>, BaseReadWriteRepository<Lead>>();
+builder.Services.AddScoped<IReadRepository<Lead>, BaseReadRepository<Lead>>();
+builder.Services.AddScoped<IWriteRepository<Lead>, BaseWriteRepository<Lead>>();
+builder.Services.AddScoped<IReadWriteRepository<Lead>, BaseReadWriteRepository<Lead>>();
 
-builder.Services.AddTransient<IReadRepository<Contact>, BaseReadRepository<Contact>>();
-builder.Services.AddTransient<IWriteRepository<Contact>, BaseWriteRepository<Contact>>();
-builder.Services.AddTransient<IReadWriteRepository<Contact>, BaseReadWriteRepository<Contact>>();
+builder.Services.AddScoped<IReadRepository<Contact>, BaseReadRepository<Contact>>();
+builder.Services.AddScoped<IWriteRepository<Contact>, BaseWriteRepository<Contact>>();
+builder.Services.AddScoped<IReadWriteRepository<Contact>, BaseReadWriteRepository<Contact>>();
 
 var app = builder.Build();
 

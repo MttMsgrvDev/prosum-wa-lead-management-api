@@ -36,6 +36,8 @@ public class CreateLeadCommandHandler(
 
         lead.ContactId = contact.Id;
 
+        lead.CreatedDate = DateTime.UtcNow;
+
         var result = await leadRepository.CreateAsync(lead, cancellationToken);
 
         // I would like to try to find a way to avoid this.

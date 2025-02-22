@@ -6,7 +6,7 @@ namespace LeadManagermentApi.Data.Context;
 /// <summary>
 /// The database contact for lead management.
 /// </summary>
-public class LeadContext : DbContext
+public class LeadContext(DbContextOptions options) : DbContext(options)
 {
 
     /// <summary>
