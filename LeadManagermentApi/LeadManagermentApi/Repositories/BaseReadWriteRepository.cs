@@ -41,9 +41,9 @@ public class BaseReadWriteRepository<TEntity>(IReadRepository<TEntity> readRepos
     /// <param name="id">UNiquely identifies trhe record to be fetched.</param>
     /// <param name="cancellationToken">Allows for cancellation.</param>
     /// <returns>A task to retrieve the entity identified by the given id.</returns>
-    public async Task<TEntity?> GetAsync(Guid guid, CancellationToken cancellationToken = default)
+    public async Task<TEntity?> GetAsync(Guid guid, IEnumerable<string>? propertyIncludes = null, CancellationToken cancellationToken = default)
     {
-        return await readRepository.GetAsync(guid, cancellationToken);
+        return await readRepository.GetAsync(guid, propertyIncludes, cancellationToken);
     }
 
     /// <summary>
@@ -52,9 +52,9 @@ public class BaseReadWriteRepository<TEntity>(IReadRepository<TEntity> readRepos
     /// <param name="predicate">An expression used to filter entity records.</param>
     /// <param name="cancellationToken">Allows for cancellation.</param>
     /// <returns>A task to retrieve a collection of entity records using the given filtyer.</returns>
-    public async Task<IEnumerable<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>>? predicate = null, IEnumerable<string>? propertyIncludes = null, CancellationToken cancellationToken = default)
     {
-        return await readRepository.GetManyAsync(predicate, cancellationToken);
+        return await readRepository.GetManyAsync(predicate, propertyIncludes, cancellationToken);
     }
 
     // <summary>

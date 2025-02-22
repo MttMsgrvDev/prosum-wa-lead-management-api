@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LeadManagermentApi.Features.Leads.Commands.Create;
 using LeadManagermentApi.Features.Leads.DTOs;
+using LeadManagermentApi.Features.Leads.Queries.GetList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,5 +33,16 @@ public class LeadController(
         var result = await mediator.Send(command);
 
         return Created("", result);
+    }
+
+    [HttpGet,
+        Route("list")]
+    public async Task<ActionResult<IEnumerable<LeadDto>>> GetLeads()
+    {
+        var query = new GetListLeadQuery();
+
+        var result = await mediator.Send(query);
+
+        return Ok(result);
     }
 }

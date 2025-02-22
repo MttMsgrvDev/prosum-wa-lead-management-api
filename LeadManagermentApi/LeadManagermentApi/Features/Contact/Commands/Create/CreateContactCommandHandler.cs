@@ -44,7 +44,7 @@ public class CreateContactCommandHandler(
             return;
         }
 
-        var result = await repository.GetManyAsync(c => c.Email == request.Email, cancellationToken);
+        var result = await repository.GetManyAsync(c => c.Email == request.Email, null, cancellationToken);
 
         if (result.Any())
         {

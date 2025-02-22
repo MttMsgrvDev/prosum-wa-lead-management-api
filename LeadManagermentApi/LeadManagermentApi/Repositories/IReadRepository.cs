@@ -17,7 +17,7 @@ public interface IReadRepository<TEntity>
     /// <param name="guid">The globally unique ID of the record to retrieve.</param>
     /// <param name="cancellationToken">Allows for task cancellation.</param>
     /// <returns>A task to retrieve the entity record identified by the given guid.</returns>
-    Task<TEntity?> GetAsync(Guid guid, CancellationToken cancellationToken = default);
+    Task<TEntity?> GetAsync(Guid guid, IEnumerable<string>? propertyIncludes = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Asynchronously retrieves a collection of entity records based on a filtering expression.
@@ -25,5 +25,5 @@ public interface IReadRepository<TEntity>
     /// <param name="predicate">An expression used to filter entity records.</param>
     /// <param name="cancellationToken">Allows for cancellation.</param>
     /// <returns>A task to retrieve a collection of entity records using the given filter.</returns>
-    Task<IEnumerable<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
+    Task<IEnumerable<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>>? predicate = null, IEnumerable<string>? propertyIncludes = null, CancellationToken cancellationToken = default);
 }
