@@ -25,11 +25,11 @@ public class FindContactQueryHandler(
 
     private async Task<Data.Models.Contact?> FindContactByEmail(string email, CancellationToken cancellationToken)
     {
-        return (await contactRepository.GetManyAsync(c => c.Email == email, cancellationToken)).FirstOrDefault();
+        return (await contactRepository.GetManyAsync(c => c.Email == email, null, cancellationToken)).FirstOrDefault();
     }
 
     private async Task<Data.Models.Contact?> FindContactByPhoneAndLastName(string phoneNumber, string lastName, CancellationToken cancellationToken)
     {
-        return (await contactRepository.GetManyAsync(c => c.PhoneNumber == phoneNumber && c.LastName == lastName, cancellationToken)).FirstOrDefault();
+        return (await contactRepository.GetManyAsync(c => c.PhoneNumber == phoneNumber && c.LastName == lastName, null, cancellationToken)).FirstOrDefault();
     }
 }
