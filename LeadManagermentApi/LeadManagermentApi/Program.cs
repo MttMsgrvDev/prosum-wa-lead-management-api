@@ -5,6 +5,7 @@ using LeadManagermentApi.Data.Models;
 using LeadManagermentApi.Exceptions;
 using LeadManagermentApi.Features.Leads.Profiles;
 using LeadManagermentApi.Repositories;
+using LeadManagermentApi.Services.Clock;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -35,6 +36,8 @@ builder.Services.AddDbContextFactory<LeadContext>(options =>
 {
     options.UseInMemoryDatabase("LeadManagementDb");
 });
+
+builder.Services.AddScoped<IClockService, ClockService>();
 
 builder.Services.AddScoped<IReadRepository<Lead>, BaseReadRepository<Lead>>();
 builder.Services.AddScoped<IWriteRepository<Lead>, BaseWriteRepository<Lead>>();

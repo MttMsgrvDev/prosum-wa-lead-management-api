@@ -5,6 +5,7 @@ using LeadManagermentApi.Features.Contact.DTOs;
 using LeadManagermentApi.Features.Contact.Queries.Find;
 using LeadManagermentApi.Features.Leads.DTOs;
 using LeadManagermentApi.Repositories;
+using LeadManagermentApi.Services.Clock;
 using MediatR;
 
 namespace LeadManagermentApi.Features.Leads.Commands.Create;
@@ -15,7 +16,8 @@ namespace LeadManagermentApi.Features.Leads.Commands.Create;
 public class CreateLeadCommandHandler(
     IWriteRepository<Lead> leadRepository,
     IMediator mediator,
-    IMapper mapper) : IRequestHandler<CreateLeadCommand, LeadDto>
+    IMapper mapper,
+    IClockService clockService) : IRequestHandler<CreateLeadCommand, LeadDto>
 {
 
 
@@ -36,7 +38,7 @@ public class CreateLeadCommandHandler(
 
         lead.ContactId = contact.Id;
 
-        lead.CreatedDate = DateTime.UtcNow;
+        lead.CreatedDate = clockService.UtcNow;
 
         var result = await leadRepository.CreateAsync(lead, cancellationToken);
 

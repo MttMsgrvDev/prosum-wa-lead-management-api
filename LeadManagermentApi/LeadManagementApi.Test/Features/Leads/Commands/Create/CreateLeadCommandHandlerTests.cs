@@ -8,6 +8,7 @@ using LeadManagermentApi.Features.Contact.Queries.Find;
 using LeadManagermentApi.Features.Leads.Commands.Create;
 using LeadManagermentApi.Features.Leads.Profiles;
 using LeadManagermentApi.Repositories;
+using LeadManagermentApi.Services.Clock;
 using MediatR;
 using Moq;
 using System.Threading.Tasks;
@@ -16,6 +17,9 @@ namespace LeadManagementApi.Test.Features.Leads.Commands.Create;
 
 public class CreateLeadCommandHandlerTests
 {
+    private static readonly DateTime Now = new DateTime(2025, 1, 1, 0, 0, 0);
+
+    private readonly Mock<IClockService> _clockService;
 
     private readonly Mock<IWriteRepository<Lead>> _leadRepository;
 
@@ -27,6 +31,8 @@ public class CreateLeadCommandHandlerTests
 
     public CreateLeadCommandHandlerTests()
     {
+        _clockService = new Mock<IClockService>();
+
         _leadRepository = new Mock<IWriteRepository<Lead>>();
 
         _mediator = new Mock<IMediator>();
@@ -41,7 +47,8 @@ public class CreateLeadCommandHandlerTests
         _handler = new CreateLeadCommandHandler(
             _leadRepository.Object,
             _mediator.Object,
-            _mapper);
+            _mapper,
+            _clockService.Object);
     }
 
     [Fact]
@@ -83,6 +90,9 @@ public class CreateLeadCommandHandlerTests
                 Source = source,
                 CreatedDate = createdDate
             });
+
+        _clockService.Setup(cs => cs.UtcNow)
+            .Returns(Now);
 
         var command = new CreateLeadCommand(source, subject, message, email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
 
@@ -128,6 +138,9 @@ public class CreateLeadCommandHandlerTests
                 Source = source,
                 CreatedDate = createdDate
             });
+
+        _clockService.Setup(cs => cs.UtcNow)
+            .Returns(Now);
 
         var command = new CreateLeadCommand(source, subject, message, email, firstName, lastName, phoneNumber, zipCode, permissionToContact);
 
