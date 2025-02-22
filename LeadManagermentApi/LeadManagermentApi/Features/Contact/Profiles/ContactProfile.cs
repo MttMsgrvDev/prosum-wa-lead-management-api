@@ -12,6 +12,6 @@ public class ContactProfile : Profile
     public ContactProfile()
     {
         CreateMap<CreateContactCommand, Data.Models.Contact>();
-        CreateMap<Data.Models.Contact, ContactDto>();
+        CreateMap<Data.Models.Contact, ContactDto>().ReverseMap();
     }
 }

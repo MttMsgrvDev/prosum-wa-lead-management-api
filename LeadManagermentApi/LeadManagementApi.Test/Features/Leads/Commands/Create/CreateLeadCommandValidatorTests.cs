@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using LeadManagermentApi.Features.Leads.Commands.Create;
 
-namespace LeadManagementApi.Test.Features.Leads.Commands;
+namespace LeadManagementApi.Test.Features.Leads.Commands.Create;
 
 public class CreateLeadCommandValidatorTests
 {
