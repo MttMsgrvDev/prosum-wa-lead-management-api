@@ -1,4 +1,5 @@
 ﻿using LeadManagermentApi.Data.Models.Entity;
+using LeadManagermentApi.DTOs;
 using System.Linq.Expressions;
 
 namespace LeadManagermentApi.Repositories;
@@ -39,22 +40,36 @@ public class BaseReadWriteRepository<TEntity>(IReadRepository<TEntity> readRepos
     /// Retrieves the record that is identified by the given id.
     /// </summary>
     /// <param name="id">UNiquely identifies trhe record to be fetched.</param>
+    /// <param name="includeOptions">The options for including child items.</param>
     /// <param name="cancellationToken">Allows for cancellation.</param>
     /// <returns>A task to retrieve the entity identified by the given id.</returns>
-    public async Task<TEntity?> GetAsync(Guid guid, IEnumerable<string>? propertyIncludes = null, CancellationToken cancellationToken = default)
+    public async Task<TEntity?> GetAsync(
+        Guid guid,
+        IncludeOptions? includeOptions = null,
+        CancellationToken cancellationToken = default)
     {
-        return await readRepository.GetAsync(guid, propertyIncludes, cancellationToken);
+        return await readRepository.GetAsync(guid, includeOptions, cancellationToken);
     }
 
     /// <summary>
     /// Asynchronously retrieves a collection of entity records based on a filtering expression.
     /// </summary>
-    /// <param name="predicate">An expression used to filter entity records.</param>
+    /// <param name="filterOptions">The options used to filter entity records.</param>
+    /// <param name="includeOptions">The options for including child items.</param>
+    /// <param name="sortOptions">Options for sorting records.</param>
     /// <param name="cancellationToken">Allows for cancellation.</param>
-    /// <returns>A task to retrieve a collection of entity records using the given filtyer.</returns>
-    public async Task<IEnumerable<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>>? predicate = null, IEnumerable<string>? propertyIncludes = null, CancellationToken cancellationToken = default)
+    /// <returns>A task to retrieve a collection of entity records using the given filter.</returns>
+    public async Task<IEnumerable<TEntity>> GetManyAsync(
+        FilterOptions? filterOptions = null,
+        IncludeOptions? includeOptions = null,
+        SortOptions? sortOptions = null,
+        CancellationToken cancellationToken = default)
     {
-        return await readRepository.GetManyAsync(predicate, propertyIncludes, cancellationToken);
+        return await readRepository.GetManyAsync(
+            filterOptions,
+            includeOptions,
+            sortOptions,
+            cancellationToken);
     }
 
     // <summary>

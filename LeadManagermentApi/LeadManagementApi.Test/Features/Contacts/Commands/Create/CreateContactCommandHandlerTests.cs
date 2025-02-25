@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using LeadManagermentApi.Data.Models;
+using LeadManagermentApi.DTOs;
 using LeadManagermentApi.Features.Contact.Commands.Create;
 using LeadManagermentApi.Features.Contact.Excceptions;
 using LeadManagermentApi.Features.Contact.Profiles;
@@ -44,7 +45,9 @@ public class CreateContactCommandHandlerTests
         var permissionToContact = true;
 
         _contactRepo.Setup(cr => cr.GetManyAsync(
-            It.IsAny<Expression<Func<Contact, bool>>>(),
+            It.IsAny<FilterOptions?>(),
+            It.IsAny<IncludeOptions?>(),
+            It.IsAny<SortOptions?>(),
             It.IsAny<CancellationToken>()))
             .ReturnsAsync([]);
 
@@ -81,7 +84,9 @@ public class CreateContactCommandHandlerTests
         var permissionToContact = true;
 
         _contactRepo.Setup(cr => cr.GetManyAsync(
-            It.IsAny<Expression<Func<Contact, bool>>>(),
+            It.IsAny<FilterOptions?>(),
+            It.IsAny<IncludeOptions?>(),
+            It.IsAny<SortOptions?>(),
             It.IsAny<CancellationToken>()))
             .ReturnsAsync([ new Contact {
                 Id = Guid.NewGuid(),

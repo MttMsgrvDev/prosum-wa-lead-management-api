@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LeadManagermentApi.DTOs;
 using LeadManagermentApi.Features.Contact.DTOs;
 using LeadManagermentApi.Repositories;
 using MediatR;
@@ -25,11 +26,26 @@ public class FindContactQueryHandler(
 
     private async Task<Data.Models.Contact?> FindContactByEmail(string email, CancellationToken cancellationToken)
     {
-        return (await contactRepository.GetManyAsync(c => c.Email == email, null, cancellationToken)).FirstOrDefault();
+        var filterOptions = new FilterOptions([new FieldFilter("Email", "=", email)]);
+
+        return (await contactRepository.GetManyAsync(
+            filterOptions,
+            null,
+            null,
+            cancellationToken)).FirstOrDefault();
     }
 
     private async Task<Data.Models.Contact?> FindContactByPhoneAndLastName(string phoneNumber, string lastName, CancellationToken cancellationToken)
     {
-        return (await contactRepository.GetManyAsync(c => c.PhoneNumber == phoneNumber && c.LastName == lastName, null, cancellationToken)).FirstOrDefault();
+        var filterOptions = new FilterOptions([
+            new FieldFilter("PhoneNumber", "=", phoneNumber),
+            new FieldFilter("LastName", "=", lastName)
+            ]);
+
+        return (await contactRepository.GetManyAsync(
+            filterOptions,
+            null,
+            null,
+            cancellationToken)).FirstOrDefault();
     }
 }

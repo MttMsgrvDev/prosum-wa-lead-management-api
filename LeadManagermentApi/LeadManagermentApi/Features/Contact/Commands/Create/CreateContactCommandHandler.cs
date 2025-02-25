@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LeadManagermentApi.DTOs;
 using LeadManagermentApi.Features.Contact.DTOs;
 using LeadManagermentApi.Features.Contact.Excceptions;
 using LeadManagermentApi.Repositories;
@@ -44,7 +45,9 @@ public class CreateContactCommandHandler(
             return;
         }
 
-        var result = await repository.GetManyAsync(c => c.Email == request.Email, null, cancellationToken);
+        var filterOptions = new FilterOptions([new FieldFilter("Email", "=", request.Email) ]);
+
+        var result = await repository.GetManyAsync(filterOptions, null, null, cancellationToken);
 
         if (result.Any())
         {

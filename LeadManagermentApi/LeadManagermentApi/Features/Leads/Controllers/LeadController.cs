@@ -37,10 +37,8 @@ public class LeadController(
 
     [HttpGet,
         Route("list")]
-    public async Task<ActionResult<IEnumerable<LeadDto>>> GetLeads()
+    public async Task<ActionResult<IEnumerable<LeadDto>>> GetLeads(GetLeadListQuery query)
     {
-        var query = new GetListLeadQuery();
-
         var result = await mediator.Send(query);
 
         return Ok(result);

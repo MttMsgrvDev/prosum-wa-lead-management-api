@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using LeadManagermentApi.Data.Models;
+using LeadManagermentApi.DTOs;
 using LeadManagermentApi.Features.Contact.Profiles;
 using LeadManagermentApi.Features.Contact.Queries.Find;
 using LeadManagermentApi.Repositories;
@@ -44,7 +45,9 @@ public class FindContactQueryHandlerTests
         var permissionToContact = true;
 
         _contactRepo.Setup(cr => cr.GetManyAsync(
-            It.IsAny<Expression<Func<Contact, bool>>>(),
+            It.IsAny<FilterOptions?>(),
+            It.IsAny<IncludeOptions?>(),
+            It.IsAny<SortOptions?>(),
             It.IsAny<CancellationToken>()))
             .ReturnsAsync([ new Contact
                 {
@@ -75,7 +78,9 @@ public class FindContactQueryHandlerTests
         var lastName = "Musgrove";
 
         _contactRepo.Setup(cr => cr.GetManyAsync(
-            It.IsAny<Expression<Func<Contact, bool>>>(),
+            It.IsAny<FilterOptions?>(),
+            It.IsAny<IncludeOptions?>(),
+            It.IsAny<SortOptions?>(),
             It.IsAny<CancellationToken>()))
             .ReturnsAsync([]);
 
