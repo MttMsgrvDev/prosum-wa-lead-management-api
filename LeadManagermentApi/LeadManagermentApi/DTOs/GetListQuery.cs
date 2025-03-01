@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LeadManagermentApi.DTOs;
 
@@ -10,7 +11,7 @@ namespace LeadManagermentApi.DTOs;
 /// <param name="SortOptions">Options for sorting.</param>
 /// <param name="IncludeOptions">Options for including child objects.</param>
 public record GetListQuery<TRecord>(
-    FilterOptions? FilterOptions = null,
-    SortOptions? SortOptions = null,
-    IncludeOptions? IncludeOptions = null
+    [FromQuery] FilterOptions? FilterOptions = null,
+    [FromQuery] SortOptions? SortOptions = null,
+    [FromQuery] IncludeOptions? IncludeOptions = null
 ) : IRequest<IEnumerable<TRecord>>;

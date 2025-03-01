@@ -20,6 +20,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddLogging();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
@@ -50,10 +52,14 @@ builder.Services.AddScoped<IWriteRepository<Contact>, BaseWriteRepository<Contac
 builder.Services.AddScoped<IReadWriteRepository<Contact>, BaseReadWriteRepository<Contact>>();
 
 builder.Services.AddScoped(typeof(IFilteringService<>), typeof(FilteringService<>));
+builder.Services.AddScoped<IFilterOptionsProvider, QueryStringFilterOptionsProvider>();
+builder.Services.AddScoped<IFilterStringParser, FilterStringParser>();
 
 builder.Services.AddScoped(typeof(IIncludeService<>), typeof(IncludeService<>));
+builder.Services.AddScoped<IIncludeStringParser, IncludeStringParser>();
 
 builder.Services.AddScoped(typeof(ISortingService<>), typeof(SortingService<>));
+builder.Services.AddScoped<ISortStringParser, SortStringParser>();
 
 var app = builder.Build();
 
