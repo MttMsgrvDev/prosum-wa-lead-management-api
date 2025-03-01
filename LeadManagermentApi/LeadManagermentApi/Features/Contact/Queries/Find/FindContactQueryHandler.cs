@@ -26,7 +26,7 @@ public class FindContactQueryHandler(
 
     private async Task<Data.Models.Contact?> FindContactByEmail(string email, CancellationToken cancellationToken)
     {
-        var filterOptions = new FilterOptions([new FieldFilter("Email", "=", email)]);
+        var filterOptions = new FilterOptions([new FieldFilter("Email", FieldFilterOperator.Equal, email)]);
 
         return (await contactRepository.GetManyAsync(
             filterOptions,
@@ -38,8 +38,8 @@ public class FindContactQueryHandler(
     private async Task<Data.Models.Contact?> FindContactByPhoneAndLastName(string phoneNumber, string lastName, CancellationToken cancellationToken)
     {
         var filterOptions = new FilterOptions([
-            new FieldFilter("PhoneNumber", "=", phoneNumber),
-            new FieldFilter("LastName", "=", lastName)
+            new FieldFilter("PhoneNumber", FieldFilterOperator.Equal, phoneNumber),
+            new FieldFilter("LastName", FieldFilterOperator.Equal, lastName)
             ]);
 
         return (await contactRepository.GetManyAsync(

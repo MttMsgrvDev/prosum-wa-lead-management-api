@@ -3,9 +3,11 @@ using LeadManagermentApi.Behavoirs;
 using LeadManagermentApi.Data.Context;
 using LeadManagermentApi.Data.Models;
 using LeadManagermentApi.Exceptions;
-using LeadManagermentApi.Features.Leads.Profiles;
 using LeadManagermentApi.Repositories;
 using LeadManagermentApi.Services.Clock;
+using LeadManagermentApi.Services.Filtering;
+using LeadManagermentApi.Services.Include;
+using LeadManagermentApi.Services.Sort;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -46,6 +48,12 @@ builder.Services.AddScoped<IReadWriteRepository<Lead>, BaseReadWriteRepository<L
 builder.Services.AddScoped<IReadRepository<Contact>, BaseReadRepository<Contact>>();
 builder.Services.AddScoped<IWriteRepository<Contact>, BaseWriteRepository<Contact>>();
 builder.Services.AddScoped<IReadWriteRepository<Contact>, BaseReadWriteRepository<Contact>>();
+
+builder.Services.AddScoped(typeof(IFilteringService<>), typeof(FilteringService<>));
+
+builder.Services.AddScoped(typeof(IIncludeService<>), typeof(IncludeService<>));
+
+builder.Services.AddScoped(typeof(ISortingService<>), typeof(SortingService<>));
 
 var app = builder.Build();
 

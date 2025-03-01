@@ -5,6 +5,7 @@ namespace LeadManagermentApi.Services.Filtering;
 /// <summary>
 /// Provides filtering services for entities of type TEntity.
 /// </summary>
+/// <typeparam name="TEntity">The type of entity to provide filtering services for.</typeparam>
 public interface IFilteringService<TEntity>
 {
 

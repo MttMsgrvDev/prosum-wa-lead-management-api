@@ -45,7 +45,7 @@ public class CreateContactCommandHandler(
             return;
         }
 
-        var filterOptions = new FilterOptions([new FieldFilter("Email", "=", request.Email) ]);
+        var filterOptions = new FilterOptions([new FieldFilter("Email", FieldFilterOperator.Equal, request.Email) ]);
 
         var result = await repository.GetManyAsync(filterOptions, null, null, cancellationToken);
 

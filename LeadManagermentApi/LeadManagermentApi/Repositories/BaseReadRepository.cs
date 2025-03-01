@@ -5,8 +5,6 @@ using LeadManagermentApi.Services.Filtering;
 using LeadManagermentApi.Services.Include;
 using LeadManagermentApi.Services.Sort;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
 
 namespace LeadManagermentApi.Repositories;
 
@@ -38,6 +36,8 @@ public class BaseReadRepository<TEntity>(
         using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
         var query = context.Set<TEntity>().AsQueryable();
+
+        query.Include("test");
         
         if (null != includeOptions)
         {
@@ -118,7 +118,7 @@ public class BaseReadRepository<TEntity>(
             throw new Exception($"No include service provided for type {typeof(TEntity).Name}.");
         }
 
-        return includeService.Include(query, includeOptions);
+        return includeService.IncludeChildren(query, includeOptions);
     }
 
     /// <summary>
